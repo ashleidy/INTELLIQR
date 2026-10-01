@@ -1,0 +1,18 @@
+# --- Aplicación web (Streamlit) ---
+streamlit>=1.50
+requests>=2.31
+
+# --- Motor de QR heredado (se reutiliza sin cambios) ---
+qrcode[pil]>=7.4
+Pillow>=10.0
+reportlab>=4.0
+
+# --- Códigos de barras (BWIPP; necesita Ghostscript, ver packages.txt) ---
+treepoem>=3.0
+
+# --- Escáner (necesita libzbar0, ver packages.txt) ---
+pyzbar>=0.1.9
+
+# Nota: PySide6, SQLAlchemy, opencv-python y pyinstaller NO se incluyen aquí.
+# Son dependencias exclusivas de la app de escritorio, que sigue viviendo en
+# intelliqr/requirements.txt y no se ejecuta en la web.

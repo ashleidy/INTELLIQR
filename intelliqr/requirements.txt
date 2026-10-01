@@ -1,0 +1,11 @@
+PySide6>=6.6
+SQLAlchemy>=2.0
+qrcode[pil]>=7.4
+Pillow>=10.0
+reportlab>=4.0
+openpyxl>=3.1
+opencv-python>=4.9
+pyzbar>=0.1.9
+treepoem>=3.0
+pyinstaller>=6.3
+segno>=1.6

@@ -1,0 +1,31 @@
+# Secretos — NUNCA subir
+.env
+.streamlit/secrets.toml
+service_account.json
+*.pem
+*.key
+credentials.json
+client_secret*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Datos locales y salidas
+*.db
+*.sqlite3
+exports/
+logs/
+*.log
+
+# Sistema operativo / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
