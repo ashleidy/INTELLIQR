@@ -1,16 +1,10 @@
-"""
-IntelliQR — Generador de QR estático y códigos de barras
-Punto de entrada de la aplicación Streamlit.
-
-Ejecutar en local:  streamlit run app.py
-"""
 from __future__ import annotations
 
 import sys
 from pathlib import Path
+import streamlit.components.v1 as components
 
-# La raíz del proyecto debe estar en sys.path para que `services`, `utils` y
-# `pages` se importen igual en local y en Streamlit Cloud.
+
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -80,6 +74,20 @@ pages = [
 
 navigation = st.navigation(pages, position="sidebar")
 _sidebar_footer()
+
+
+components.html(
+    """
+    <script>
+      const d = window.parent.document;
+      d.documentElement.lang = "es";
+      d.documentElement.setAttribute("translate", "yes");
+      d.querySelectorAll('meta[name="google"]').forEach(m => m.remove());
+      d.querySelectorAll('.notranslate').forEach(e => e.classList.remove('notranslate'));
+    </script>
+    """,
+    height=0,
+)
 navigation.run()
 
 st.markdown(
