@@ -1,10 +1,11 @@
+
 from __future__ import annotations
 
 import sys
 from pathlib import Path
-import streamlit.components.v1 as components
 
-
+# La raíz del proyecto debe estar en sys.path para que `services`, `utils` y
+# `pages` se importen igual en local y en Streamlit Cloud.
 ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -12,12 +13,13 @@ if str(ROOT) not in sys.path:
 import streamlit as st  # noqa: E402
 
 from utils.helpers import bootstrap_legacy_path, setup_logging  # noqa: E402
+from utils.i18n import language_selector, tr  # noqa: E402
 
 setup_logging()
 bootstrap_legacy_path()
 
 st.set_page_config(
-    page_title="IntelliQR — QR estático y códigos de barras",
+    page_title=tr("IntelliQR — QR estático y códigos de barras"),
     page_icon="🔗",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -53,41 +55,28 @@ st.markdown(
 def _sidebar_header() -> None:
     with st.sidebar:
         st.markdown('<p class="iq-brand">IntelliQR</p>', unsafe_allow_html=True)
-        st.markdown('<p class="iq-sub">Generador de QR estático</p>', unsafe_allow_html=True)
+        st.markdown(f'<p class="iq-sub">{tr("Generador de QR estático")}</p>', unsafe_allow_html=True)
+        language_selector()
         st.divider()
 
 
 def _sidebar_footer() -> None:
     with st.sidebar:
         st.divider()
-        st.caption("🔒 No guardamos tus datos: todo se genera en el momento.")
+        st.caption(tr("🔒 No guardamos tus datos: todo se genera en el momento."))
         st.caption("Developed by Ashleidy")
 
 
 _sidebar_header()
 
 pages = [
-    st.Page("pages/create_qr.py", title="Crear QR", icon="✨", default=True),
-    st.Page("pages/barcode.py", title="Códigos de barras", icon="🏷️"),
-    st.Page("pages/scanner.py", title="Escáner", icon="🔍"),
+    st.Page("pages/create_qr.py", title=tr("Crear QR"), icon="✨", default=True),
+    st.Page("pages/barcode.py", title=tr("Códigos de barras"), icon="🏷️"),
+    st.Page("pages/scanner.py", title=tr("Escáner"), icon="🔍"),
 ]
 
 navigation = st.navigation(pages, position="sidebar")
 _sidebar_footer()
-
-
-components.html(
-    """
-    <script>
-      const d = window.parent.document;
-      d.documentElement.lang = "es";
-      d.documentElement.setAttribute("translate", "yes");
-      d.querySelectorAll('meta[name="google"]').forEach(m => m.remove());
-      d.querySelectorAll('.notranslate').forEach(e => e.classList.remove('notranslate'));
-    </script>
-    """,
-    height=0,
-)
 navigation.run()
 
 st.markdown(
